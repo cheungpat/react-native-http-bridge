@@ -43,6 +43,8 @@ jspm_packages
 android/gen
 android/.idea
 android/.gradle
+android/gradle/
+android/gradlew*
 android/build
 local.properties
 android.iml

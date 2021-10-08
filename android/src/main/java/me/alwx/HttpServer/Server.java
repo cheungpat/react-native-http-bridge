@@ -92,7 +92,7 @@ public class Server extends NanoHTTPD {
         responses.put(requestId, response);
     }
 
-    private ReadableMap getHeaders(IHTTPSession session) {
+    private WritableMap getHeaders(IHTTPSession session) {
         WritableMap headers = Arguments.createMap();
         for (Map.Entry<String,String> entry : session.getHeaders().entrySet()) {
             headers.putString(entry.getKey(), entry.getValue());
