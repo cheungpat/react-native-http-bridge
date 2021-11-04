@@ -136,4 +136,9 @@ RCT_EXPORT_METHOD(respond: (NSString *) requestId
     
 }
 
+- (void)invalidate
+{
+    [self stop];
+}
+
 @end
