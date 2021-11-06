@@ -116,7 +116,7 @@ RCT_EXPORT_METHOD(respond: (NSString *) requestId
                   body: (NSString *) body
                   headers: (NSDictionary *) headers)
 {
-    NSData* data = [body dataUsingEncoding:NSUTF8StringEncoding];
+    NSData* data = [[NSData alloc] initWithBase64EncodedString:body options:NSDataBase64DecodingIgnoreUnknownCharacters];
     GCDWebServerDataResponse* requestResponse = [[GCDWebServerDataResponse alloc] initWithData:data contentType:type];
     requestResponse.statusCode = code;
     if (headers != NULL && [headers count]){

@@ -11,8 +11,10 @@ import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
-import java.util.Map;
+import java.io.ByteArrayInputStream;
+import java.util.Base64;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import androidx.annotation.Nullable;
@@ -64,7 +66,15 @@ public class Server extends NanoHTTPD {
     }
 
     public void respond(String requestId, int code, String type, String body, ReadableMap headers) {
-        Response response = newFixedLengthResponse(Status.lookup(code), type, body);
+        byte[] data;
+        Response response;
+        try {
+            data = Base64.getDecoder().decode(body);
+            response = newFixedLengthResponse(Status.lookup(code), type, new ByteArrayInputStream(data), data.length);
+        } catch (IllegalArgumentException ex) {
+            response = newFixedLengthResponse(Status.lookup(502), type, "Bad Gateway");
+        }
+
         if (headers != null) {
             ReadableMapKeySetIterator iterator = headers.keySetIterator();
             while (iterator.hasNextKey()) {
