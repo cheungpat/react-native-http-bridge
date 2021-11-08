@@ -12,13 +12,13 @@ import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import java.io.ByteArrayInputStream;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import androidx.annotation.Nullable;
+import android.util.Base64;
 import android.util.Log;
+import androidx.annotation.Nullable;
 
 public class Server extends NanoHTTPD {
     private static final String TAG = "HttpServer";
@@ -69,7 +69,7 @@ public class Server extends NanoHTTPD {
         byte[] data;
         Response response;
         try {
-            data = Base64.getDecoder().decode(body);
+            data = Base64.decode(body, Base64.DEFAULT);
             response = newFixedLengthResponse(Status.lookup(code), type, new ByteArrayInputStream(data), data.length);
         } catch (IllegalArgumentException ex) {
             response = newFixedLengthResponse(Status.lookup(502), type, "Bad Gateway");
