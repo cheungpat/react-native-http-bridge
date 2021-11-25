@@ -114,7 +114,9 @@ public class Server extends NanoHTTPD {
         Method method = session.getMethod();
         WritableMap request = Arguments.createMap();
 
-        request.putString("url", session.getUri());
+        String uri = session.getUri();
+        String paramString = session.getQueryParameterString();
+        request.putString("url", uri + (paramString != "" ? "?" + paramString : ""));
         request.putString("type", method.name());
         request.putMap("headers", getHeaders(session));
         request.putString("requestId", requestId);
