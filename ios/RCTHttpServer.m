@@ -43,7 +43,7 @@ RCT_EXPORT_MODULE();
             [self getCompletionBlock:requestId];
         });
         
-        NSLog(@"RCTHttpServer got request id: %@", requestId);
+        // NSLog(@"RCTHttpServer got request id: %@", requestId);
 
         @try {
             if ([GCDWebServerTruncateHeaderValue(request.contentType) isEqualToString:@"application/json"]) {

@@ -37,7 +37,7 @@ public class Server extends NanoHTTPD {
 
     @Override
     public Response serve(IHTTPSession session) {
-        Log.d(TAG, "Request received!");
+        //Log.d(TAG, "Request received!");
 
         Random rand = new Random();
         String requestId = String.format("%d:%d", System.currentTimeMillis(), rand.nextInt(1000000));
